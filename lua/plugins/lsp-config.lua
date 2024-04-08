@@ -14,6 +14,7 @@ return {
           "biome",
           "rust_analyzer",
           "gopls",
+          "tsserver",
         },
       })
     end,
@@ -29,7 +30,7 @@ return {
       lspconfig.lua_ls.setup({
         capabilities,
       })
-      lspconfig.biome.setup({
+      lspconfig.tsserver.setup({
         capabilities,
       })
       lspconfig.gopls.setup({
