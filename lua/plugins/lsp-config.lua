@@ -44,7 +44,7 @@ return {
 				capabilities,
 				init_options = {
 					preferences = {
-						disableSuggestions = true,
+						disableSuggestions = false,
 					},
 				},
 				commands = {
@@ -89,6 +89,11 @@ return {
 					vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
 					vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
 				end,
+			})
+
+			vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+				command = "OrganizeImports",
+				pattern = { "*.js", "*.jsx", "*.cjs", "*.ts", "*.tsx" },
 			})
 		end,
 	},
