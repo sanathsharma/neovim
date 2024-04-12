@@ -96,6 +96,18 @@ return {
 				command = "OrganizeImports",
 				pattern = { "*.js", "*.jsx", "*.cjs", "*.ts", "*.tsx" },
 			})
+
+			-- toggle lsp inlay_hints keymap if lsp supports it, otherwise this shall throw error
+			vim.keymap.set("n", "<leader>ih", function()
+				if vim.lsp.inlay_hint == nil then
+					print("Error: inlay hints not supported by LSP")
+					return
+				end
+
+				local current_buffer = vim.api.nvim_get_current_buf()
+				-- toggle inlay hints
+				vim.lsp.inlay_hint.enable(current_buffer, not vim.lsp.inlay_hint.is_enabled())
+			end)
 		end,
 	},
 }
