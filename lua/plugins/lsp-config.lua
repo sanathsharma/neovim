@@ -29,6 +29,16 @@ return {
 
 			lspconfig.lua_ls.setup({
 				capabilities,
+				settings = {
+					Lua = {
+						completion = { enable = true },
+						telemetry = { enable = false },
+						hint = {
+							enable = true,
+							arrayIndex = "Disable",
+						},
+					},
+				},
 			})
 
 			-- tsserver setup
@@ -45,6 +55,16 @@ return {
 				init_options = {
 					preferences = {
 						disableSuggestions = false,
+						-- region: inlay hints preferences
+						includeInlayParameterNameHints = "all",
+						includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+						includeInlayFunctionParameterTypeHints = true,
+						includeInlayVariableTypeHints = true,
+						includeInlayPropertyDeclarationTypeHints = true,
+						includeInlayFunctionLikeReturnTypeHints = true,
+						includeInlayEnumMemberValueHints = true,
+						importModuleSpecifierPreference = "non-relative",
+						-- endregion: inlay hints preferences
 					},
 				},
 				commands = {
