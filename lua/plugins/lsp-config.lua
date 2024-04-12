@@ -91,6 +91,7 @@ return {
 				end,
 			})
 
+			-- auto run OrganizeImports for js/ts files when file is saved
 			vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 				command = "OrganizeImports",
 				pattern = { "*.js", "*.jsx", "*.cjs", "*.ts", "*.tsx" },
