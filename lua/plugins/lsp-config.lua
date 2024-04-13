@@ -156,6 +156,16 @@ return {
 				-- toggle inlay hints
 				vim.lsp.inlay_hint.enable(current_buffer, not vim.lsp.inlay_hint.is_enabled())
 			end, { desc = "Toggle inlay [h]ints" })
+
+			-- enable inlayhints by default if lsp supports it
+			vim.api.nvim_create_autocmd("LspAttach", {
+				group = vim.api.nvim_create_augroup("LspAttach_inlayhints", { clear = true }),
+				callback = function(event)
+					if vim.lsp.inlay_hint ~= nil then
+						vim.lsp.inlay_hint.enable(event.buf, true)
+					end
+				end,
+			})
 		end,
 	},
 }

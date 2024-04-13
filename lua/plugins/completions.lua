@@ -82,7 +82,6 @@ return {
 				{ name = "luasnip" }, -- For luasnip users.
 				-- INFO: lsp completion are good enough, if more is required then enable this and dissable the lsp completion to avoid duplication
 				-- { name = "nvim_lua" },
-			}, {
 				{ name = "buffer", keyword_length = 5 },
 			}),
 
