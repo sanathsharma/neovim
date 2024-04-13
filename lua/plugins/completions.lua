@@ -36,9 +36,11 @@ return {
 		-- INFO: lsp completion are good enough, if more is required then enable this and dissable the lsp completion to avoid duplication
 		-- "hrsh7th/cmp-nvim-lua",
 		"hrsh7th/cmp-buffer",
+		"onsails/lspkind.nvim",
 	},
 	config = function()
 		local cmp = require("cmp")
+		local lspkind = require("lspkind")
 		local luasnip = require("luasnip")
 		luasnip.config.setup({})
 
@@ -71,17 +73,35 @@ return {
 					end
 				end, { "i", "s" }),
 				["<CR>"] = cmp.mapping.confirm({ select = true }),
+				["<tab>"] = cmp.config.disable,
 			}),
+
 			sources = cmp.config.sources({
 				{ name = "nvim_lsp" },
-				{ name = "luasnip" }, -- For luasnip users.
 				{ name = "path" },
-				{ name = "buffer" },
+				{ name = "luasnip" }, -- For luasnip users.
 				-- INFO: lsp completion are good enough, if more is required then enable this and dissable the lsp completion to avoid duplication
 				-- { name = "nvim_lua" },
 			}, {
-				{ name = "buffer" },
+				{ name = "buffer", keyword_length = 5 },
 			}),
+
+			formatting = {
+				format = lspkind.cmp_format({
+					mode = "symbol_text",
+					menu = {
+						buffer = "[buf]",
+						nvim_lsp = "[LSP]",
+						nvim_lua = "[api]",
+						path = "[path]",
+						luasnip = "[snip]",
+					},
+				}),
+			},
+
+			experimental = {
+				ghost_text = true,
+			},
 		})
 	end,
 }
