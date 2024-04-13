@@ -5,6 +5,7 @@ vim.cmd("set tabstop=2")
 vim.opt.relativenumber = true
 vim.opt.number = true
 vim.opt.clipboard = "unnamedplus"
+vim.opt.foldmethod = "manual"
 vim.g.mapleader = " "
 vim.keymap.set("i", "jk", "<ESC>", { noremap = true, silent = true })
 
