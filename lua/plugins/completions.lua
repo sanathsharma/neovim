@@ -33,6 +33,9 @@ return {
 		--  into multiple repos for maintenance purposes.
 		"hrsh7th/cmp-nvim-lsp",
 		"hrsh7th/cmp-path",
+		-- INFO: lsp completion are good enough, if more is required then enable this and dissable the lsp completion to avoid duplication
+		-- "hrsh7th/cmp-nvim-lua",
+		"hrsh7th/cmp-buffer",
 	},
 	config = function()
 		local cmp = require("cmp")
@@ -73,6 +76,9 @@ return {
 				{ name = "nvim_lsp" },
 				{ name = "luasnip" }, -- For luasnip users.
 				{ name = "path" },
+				{ name = "buffer" },
+				-- INFO: lsp completion are good enough, if more is required then enable this and dissable the lsp completion to avoid duplication
+				-- { name = "nvim_lua" },
 			}, {
 				{ name = "buffer" },
 			}),
