@@ -6,9 +6,6 @@ return {
 			options = {
 				theme = "auto",
 			},
-			sections = {
-				lualine_x = { "aerial" },
-			},
 		})
 	end,
 }
