@@ -8,7 +8,9 @@
 ### Quick installation
 #### linux/docker-container
 ```sh 
-curl -fsSL https://github.com/sanathsharma/blob/master/setup/linux.sh | bash
+curl -fsSL https://raw.githubusercontent.com/sanathsharma/neovim-config/main/setup/linux.sh > setup.sh
+chmod +x setup.sh
+rm setup.sh
 ```
 
 ### Commands and keymaps
