@@ -15,5 +15,11 @@ return {
 		})
 
 		vim.keymap.set("n", "<leader>af", vim.lsp.buf.format, { desc = "[F]ormat file" })
+		vim.keymap.set(
+			"v",
+			"<leader>af",
+			vim.lsp.buf.format,
+			{ desc = "Format selected [r]ange", noremap = true }
+		)
 	end,
 }

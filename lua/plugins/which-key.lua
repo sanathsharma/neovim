@@ -2,9 +2,11 @@ return {             -- Useful plugin to show you pending keybinds.
 	"folke/which-key.nvim",
 	event = "VimEnter", -- Sets the loading event to 'VimEnter'
 	config = function() -- This is the function that runs, AFTER loading
-		require("which-key").setup()
+		local whichKey = require("which-key")
+		whichKey.setup()
 
-		require("which-key").register({
+		-- normal mode mappings register
+		whichKey.register({
 			-- Document existing key chains
 			["<leader>c"] = { name = "[C]ode", _ = "which_key_ignore" },
 			["<leader>d"] = { name = "[D]ocument", _ = "which_key_ignore" },
@@ -18,6 +20,12 @@ return {             -- Useful plugin to show you pending keybinds.
 			["<leader>t"] = { name = "[T]oggle", _ = "which_key_ignore" },
 			["<leader>a"] = { name = "[A]ctions", _ = "which_key_ignore" },
 			["<leader>h"] = { name = "Git actions", _ = "which_key_ignore" },
-		})
+		}, { mode = "n" })
+
+		-- visual mode mappings register
+		whichKey.register({
+			["<leader>a"] = { name = "[A]ctions", _ = "which_key_ignore" },
+			["<leader>h"] = { name = "Git actions", _ = "which_key_ignore" },
+		}, { mode = "v" })
 	end,
 }
