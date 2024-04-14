@@ -17,6 +17,21 @@ vim.keymap.set("n", "<leader>tr", function()
 	vim.cmd("set relativenumber!")
 end, { desc = "Toggle [r]elative line numbering" })
 
+--#region autocmd for saving and loadin line folds
+local rememberFoldsAugroup = vim.api.nvim_create_augroup("remember_folds", { clear = true })
+vim.api.nvim_create_autocmd("BufWinEnter", {
+	group = rememberFoldsAugroup,
+	callback = function()
+		vim.cmd("silent! loadview")
+	end,
+})
+vim.api.nvim_create_autocmd("BufWinLeave", {
+	group = rememberFoldsAugroup,
+	callback = function()
+		vim.cmd("silent! mkview")
+	end,
+})
+
 -- see https://github.com/nvim-lua/kickstart.nvim/blob/master/init.lua for more helpful configurations and keymaps
 -- all configurations and keymaps below this line are from kickstart.nvim template
 

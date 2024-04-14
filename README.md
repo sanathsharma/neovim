@@ -1,8 +1,17 @@
 ## neovim custom configuration
 
-setup includes LSP support for ts, go and rust
+### LSPs configured
+- tsserver
+- gopls
+- rust_analyser
 
-## commands and keymaps
+### Quick installation
+#### linux/docker-container
+```sh 
+curl -fsSL https://github.com/sanathsharma/blob/master/setup/linux.sh | bash
+```
+
+### Commands and keymaps
 
 - `:<linenumber>` - take cursor to specified line number
 - `{` - go to previous empty line
@@ -26,4 +35,13 @@ setup includes LSP support for ts, go and rust
 - `:bufdo bd` - close all buffers (INFO: will execute the following command for all buffers)
 - `gg` - go to top of the file
 - `G` - go to bottom of the file
+- `:split` - split horizontal window
+- `:vsplit` - split vertical window
+- `<C-w> *` - window options including resizing
+- `>>` - normal mode; indent code right
+- `<<` - normal mode; indent code left
+- `<` - visula mode; indent code left
+- `>`- visula mode; indent code left
+- `:%s/<old-name>/<new-name>/g` - rename something in a file with a new value
+- `.` - repeat
 
