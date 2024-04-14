@@ -87,6 +87,10 @@ sudo rm -rf ~/.config/nvim
 echo "Setuping nvim config..."
 git clone https://github.com/sanathsharma/neovim-config ~/.config/nvim
 
+# 15. install other external deps
+# ripgrep for telescope file live grep
+install_package "ripgrep"
+
 echo "All Done!"
 echo
 echo "Close the terminal and reopen for the changes to reflect"

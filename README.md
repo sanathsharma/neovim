@@ -45,8 +45,8 @@ Run `<C-space> I` from within a tmux sesson to install all tmux plugins
 - `<C-w> *` - window options including resizing
 - `>>` - normal mode; indent code right
 - `<<` - normal mode; indent code left
-- `<` - visula mode; indent code left
-- `>`- visula mode; indent code left
+- `<` - visual mode; indent code left
+- `>`- visual mode; indent code left
 - `:%s/<old-name>/<new-name>/g` - rename something in a file with a new value
 - `.` - repeat
 

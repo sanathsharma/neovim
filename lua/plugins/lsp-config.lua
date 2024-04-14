@@ -129,7 +129,7 @@ return {
 					vim.keymap.set({ "n", "v" }, "<leader>ac", vim.lsp.buf.code_action, opts("Show [C]ode actions"))
 					vim.keymap.set("n", "<leader>D", tsBuiltin.lsp_type_definitions, opts("Type [D]efinition"))
 					vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts("[R]e[n]ame"))
-					vim.keymap.set("n", "<leader>fs", tsBuiltin.lsp_document_symbols, opts("find document [S]ymbols"))
+					vim.keymap.set("n", "<leader>fd", tsBuiltin.lsp_document_symbols, opts("Find [d]ocument symbols"))
 					vim.keymap.set(
 						"n",
 						"<leader>fr",
