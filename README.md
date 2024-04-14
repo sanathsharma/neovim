@@ -10,6 +10,7 @@
 ```sh 
 curl -fsSL https://raw.githubusercontent.com/sanathsharma/neovim-config/main/setup/linux.sh > setup.sh
 chmod +x setup.sh
+./setup.sh
 rm setup.sh
 ```
 
