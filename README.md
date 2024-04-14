@@ -14,6 +14,8 @@ chmod +x setup.sh
 rm setup.sh
 ```
 
+Run `<C-space> I` from within a tmux sesson to install all tmux plugins
+
 ### Commands and keymaps
 
 - `:<linenumber>` - take cursor to specified line number
