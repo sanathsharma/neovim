@@ -16,4 +16,14 @@ setup includes LSP support for ts, go and rust
 - `:Git` - git status
 - `:Git mergetool` - open git mergetool
 - `:Git difftool` - open git difftool
+- `[d` - go to previous error diagnostics
+- `]d` - go to next error diagnostics
+- `:mkview` - write folds into a file
+- `:loadview` - read folds into a file
+- `:bd` - close all buffers
+- `:bp` - switch to previous buffer
+- `:bn` - switch to next buffer
+- `:bufdo bd` - close all buffers (INFO: will execute the following command for all buffers)
+- `gg` - go to top of the file
+- `G` - go to bottom of the file
 
