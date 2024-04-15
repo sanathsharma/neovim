@@ -2,11 +2,11 @@
 
 #region utils
 function install_package {
-        if ! dpkg -l $1 | grep -q ^ii; then
-					echo "Installing $1..."
-					# If the package is not installed, install it using apt-get install
-					sudo apt install $1
-        fi
+	if ! dpkg -l $1 | grep -q ^ii; then
+		echo "Installing $1..."
+		# If the package is not installed, install it using apt-get install
+		sudo apt install $1
+	fi
 }
 #endregion
 
@@ -18,39 +18,48 @@ if [[ ! $REPLY =~ ^[Yy]$ ]]; then
 	exit
 fi
 
-# 2. update and upgrade package manager
-sudo apt update
-sudo apt upgrade
+# 2. install sudo cammand if it does not exist (docker containers for example)
+if ! dpkg -l sudo | grep -q ^ii; then
+	apt update
+	apt upgrade
+	echo "Installing sudo..."
+	apt install sudo
+else
+# 3. update and upgrade package manager
+# if sudo installation block was run before then no need to update and upgrade the package manager again
+	sudo apt update
+	sudo apt upgrade
+fi
 
-# 3. install git and curl
+# 4. install git and curl
 # install if not already installed
 install_package "git-all"
 install_package "curl"
 
-# 4. install tmux
+# 5. install tmux
 # cleanup
 sudo rm -rf ~/.config/tmux
 sudo rm -rf ~/.tmux
 # install if not already installed
 install_package "tmux"
 
-# 5. install tpm (tmux plugin manager)
+# 6. install tpm (tmux plugin manager)
 # see https://github.com/tmux-plugins/tpm for more info
 echo "Installing tmux plugin manager..."
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
-# 6. clone tmux config
+# 7. clone tmux config
 echo "Setuping tmux config..."
 git clone https://github.com/sanathsharma/tmux ~/.config/tmux
 
-# 7. add tmux alias to ~/.bashrc
+# 8. add tmux alias to ~/.bashrc
 echo 'alias tmux="tmux -u"' >> ~/.bashrc
 
-# 8. get user input if he/she wants to install nightly/latest version of nvim
+# 9. get user input if he/she wants to install nightly/latest version of nvim
 read -p "Would you like to install \"nightly\" nvim build (y/n): " -n 1 -r
 echo
 
-# 9. curl for the nvim tarball
+# 10. curl for the nvim tarball
 # cleanup
 rm -f ./nvim-linux64.tar.gz
 # see https://github.com/neovim/neovim/blob/master/INSTALL.md#linux for more info
@@ -64,30 +73,30 @@ else
 	curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
 fi
 
-# 10. install nvim
+# 11. install nvim
 # cleanup
 sudo rm -rf /opt/nvim
 # installation
 echo "Installing nvim..."
 sudo tar -C /opt -xzvf ./nvim-linux64.tar.gz
 
-# 11. add nvim to $PATH variable
+# 12. add nvim to $PATH variable
 echo 'export PATH="$PATH:/opt/nvim-linux64/bin"' >> ~/.bashrc
 
-# 12. add nvim alias to ~/.bashrc
+# 13. add nvim alias to ~/.bashrc
 echo "alias vim=nvim" >> ~/.bashrc
 
-# 13. delete nvim installation files tarball
+# 14. delete nvim installation files tarball
 sudo rm -rf nvim-linux64.tar.gz
 
-# 14. install custom nvim config
+# 15. install custom nvim config
 # cleanup old installation
 sudo rm -rf ~/.config/nvim
 # clone repo
 echo "Setuping nvim config..."
 git clone https://github.com/sanathsharma/neovim-config ~/.config/nvim
 
-# 15. install other external deps
+# 16. install other external deps
 # ripgrep for telescope file live grep
 install_package "ripgrep"
 
