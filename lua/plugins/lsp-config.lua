@@ -49,20 +49,34 @@ return {
 							includeInlayParameterNameHints = "all",
 							includeInlayParameterNameHintsWhenArgumentMatchesName = true,
 							includeInlayFunctionParameterTypeHints = true,
-							includeInlayVariableTypeHints = true,
+							includeInlayVariableTypeHints = false,
 							includeInlayPropertyDeclarationTypeHints = true,
-							includeInlayFunctionLikeReturnTypeHints = true,
+							includeInlayFunctionLikeReturnTypeHints = false,
 							includeInlayEnumMemberValueHints = true,
 							importModuleSpecifierPreference = "non-relative",
 							-- endregion: inlay hints preferences
 						},
 					},
 					commands = {
-						OrganizeImports = {
+						OrganizeImportsTS = {
 							organize_imports,
 							description = "Organize Imports",
 						},
 					},
+					on_attach = function()
+						-- auto run OrganizeImports for js/ts files when file is saved
+						-- vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+						-- 	command = "OrganizeImportsTS",
+						-- 	pattern = { "*.js", "*.jsx", "*.cjs", "*.ts", "*.tsx" },
+						-- })
+
+						vim.keymap.set(
+							"n",
+							"<leader>ai",
+							"<cmd>OrganizeImportsTS<CR>",
+							{ desc = "Organize [I]mports" }
+						)
+					end,
 				},
 				gopls = {
 					cmd = { "gopls" },
@@ -139,12 +153,6 @@ return {
 				end,
 			})
 
-			-- auto run OrganizeImports for js/ts files when file is saved
-			vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-				command = "OrganizeImports",
-				pattern = { "*.js", "*.jsx", "*.cjs", "*.ts", "*.tsx" },
-			})
-
 			-- toggle lsp inlay_hints keymap if lsp supports it, otherwise this shall throw error
 			vim.keymap.set("n", "<leader>th", function()
 				if vim.lsp.inlay_hint == nil then
@@ -162,7 +170,7 @@ return {
 				group = vim.api.nvim_create_augroup("LspAttach_inlayhints", { clear = true }),
 				callback = function(event)
 					if vim.lsp.inlay_hint ~= nil then
-						vim.lsp.inlay_hint.enable(event.buf, true)
+						pcall(vim.lsp.inlay_hint.enable, event.buf, true)
 					end
 				end,
 			})
