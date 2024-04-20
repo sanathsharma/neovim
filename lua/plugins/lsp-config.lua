@@ -41,6 +41,7 @@ return {
 						},
 					},
 				},
+				-- biome = {},
 				tsserver = {
 					init_options = {
 						preferences = {
