@@ -17,7 +17,7 @@ return {
 					{
 						"branch",
 						fmt = function(str)
-							local max_length = 60
+							local max_length = vim.o.columns / 3.5
 							if string.len(str) > max_length then
 								return str:sub(1, max_length) .. "..."
 							end
