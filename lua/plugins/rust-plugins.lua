@@ -3,19 +3,21 @@ return {
 		"mrcjkb/rustaceanvim",
 		version = "^4",
 		ft = { "rust" },
+		lazy = false,
 		dependencies = "neovim/nvim-lspconfig",
 		config = function()
-			local bufnr = vim.api.nvim_get_current_buf()
-			vim.keymap.set("n", "<leader>ca", function()
-				vim.cmd.RustLsp("codeAction") -- supports rust-analyzer's grouping
-				-- or vim.lsp.buf.codeAction() if you don't want grouping.
-			end, { silent = true, buffer = bufnr })
+			local capabilities = vim.lsp.protocol.make_client_capabilities()
+			capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
-			-- snippets based on lsp
-			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			vim.g.rustaceanvim = {
 				server = {
-					capabilities,
+					cmd = { "rustup", "run", "stable", "rust-analyzer" },
+					capabilities = capabilities,
+					settings = {
+						["rust-analyzer"] = {
+							cargo = { allFeatures = true },
+						},
+					},
 				},
 			}
 		end,
@@ -30,12 +32,12 @@ return {
 				sources = { { name = "crates" } },
 			})
 			crates.show()
-			require("core.utils").load_mappings("crates")
+			-- require("core.utils").load_mappings("crates")
 
 			-- keymapings
-			vim.keymap.set("n", "<leader>rsu", function()
+			vim.keymap.set("n", "<leader>ur", function()
 				require("crates").upgrade_all_crates()
-			end, {})
+			end, { desc = "Upgrade [r]ust crates" })
 		end,
 	},
 	{

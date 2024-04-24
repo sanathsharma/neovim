@@ -20,6 +20,7 @@ return {             -- Useful plugin to show you pending keybinds.
 			["<leader>t"] = { name = "[T]oggle", _ = "which_key_ignore" },
 			["<leader>a"] = { name = "[A]ctions", _ = "which_key_ignore" },
 			["<leader>h"] = { name = "Git actions", _ = "which_key_ignore" },
+			["<leader>u"] = { name = "[U]pgrade", _ = "which_key_ignore" },
 		}, { mode = "n" })
 
 		-- visual mode mappings register

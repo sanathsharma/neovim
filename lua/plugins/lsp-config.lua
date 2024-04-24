@@ -71,12 +71,7 @@ return {
 						-- 	pattern = { "*.js", "*.jsx", "*.cjs", "*.ts", "*.tsx" },
 						-- })
 
-						vim.keymap.set(
-							"n",
-							"<leader>ai",
-							"<cmd>OrganizeImportsTS<CR>",
-							{ desc = "Organize [I]mports" }
-						)
+						vim.keymap.set("n", "<leader>ai", "<cmd>OrganizeImportsTS<CR>", { desc = "Organize [I]mports" })
 					end,
 				},
 				gopls = {
@@ -93,6 +88,15 @@ return {
 						},
 					},
 				},
+				-- INFO: configured by mrcjkb/rustaceanvim, so below code block is not required
+				-- rust_analyzer = {
+				-- 	cmd = { "rustup", "run", "stable", "rust-analyzer" },
+				-- 	settings = {
+				-- 		["rust-analyzer"] = {
+				-- 			cargo = { allFeatures = true },
+				-- 		},
+				-- 	},
+				-- },
 			}
 
 			-- setup mason
@@ -102,7 +106,9 @@ return {
 			vim.list_extend(ensure_installed, {
 				"stylua", -- Used to format Lua code
 				"biome",
-				"rust_analyzer",
+				-- INFO: no need to add the below line, as system installed rust-analyzer shall be picked up
+				-- see ../../README.md for more info on setting up rust-analyzer on host
+				-- "rust_analyzer",
 			})
 
 			require("mason-lspconfig").setup({
@@ -141,7 +147,18 @@ return {
 					vim.keymap.set("n", "gi", tsBuiltin.lsp_implementations, opts("Go to [i]mplementation"))
 					vim.keymap.set("n", "gr", tsBuiltin.lsp_references, opts("Go to [r]eferences"))
 
-					vim.keymap.set({ "n", "v" }, "<leader>ac", vim.lsp.buf.code_action, opts("Show [C]ode actions"))
+					vim.keymap.set(
+						{ "n", "v" },
+						"<leader>ac",
+						function()
+							if vim.bo.filetype == "rust" then
+								vim.cmd.RustLsp("codeAction")
+							else
+								vim.lsp.buf.code_action()
+							end
+						end,
+						opts("Show [C]ode actions")
+					)
 					vim.keymap.set("n", "<leader>D", tsBuiltin.lsp_type_definitions, opts("Type [D]efinition"))
 					vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts("[R]e[n]ame"))
 					vim.keymap.set("n", "<leader>fd", tsBuiltin.lsp_document_symbols, opts("Find [d]ocument symbols"))
@@ -161,9 +178,8 @@ return {
 					return
 				end
 
-				local current_buffer = vim.api.nvim_get_current_buf()
 				-- toggle inlay hints
-				vim.lsp.inlay_hint.enable(current_buffer, not vim.lsp.inlay_hint.is_enabled())
+				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled(), { bufnr = 0 })
 			end, { desc = "Toggle inlay [h]ints" })
 
 			-- enable inlayhints by default if lsp supports it
@@ -171,7 +187,7 @@ return {
 				group = vim.api.nvim_create_augroup("LspAttach_inlayhints", { clear = true }),
 				callback = function(event)
 					if vim.lsp.inlay_hint ~= nil then
-						pcall(vim.lsp.inlay_hint.enable, event.buf, true)
+						pcall(vim.lsp.inlay_hint.enable, true, { bufnr = event.buf })
 					end
 				end,
 			})

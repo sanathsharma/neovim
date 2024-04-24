@@ -16,6 +16,34 @@ rm setup.sh
 
 Run `<C-space> I` from within a tmux sesson to install all tmux plugins
 
+### Upgrade
+```sh 
+curl -fsSL https://raw.githubusercontent.com/sanathsharma/neovim-config/main/setup/linux-upgrade-nvim.sh > setup.sh
+chmod +x setup.sh
+./setup.sh
+rm setup.sh
+`
+
+### Rust, rust analyzer installation
+install stable toolchain
+```sh
+rustup toolchain install stable
+```
+```sh
+rustup component add rust-analyzer
+```
+This makes neovim use the same rust-analyzer verison as the compiler, avoiding editor not giving errors or giving unnecessary errors for example
+
+-- lines from https://vi.stackexchange.com/questions/43681/simplest-setup-for-nvim-and-rust-and-system-rust-analyzer
+You can confirm if your setup is using your system LSP via :checkhealth rustaceanvim after opening a Rust file:
+
+Checking external dependencies
+- OK rust-analyzer: found rust-analyzer 1.75.0 (82e1608 2023-12-21)
+If instead you had accidentally installed Mason's rust-analyzer, this check would say something like
+
+- OK rust-analyzer: found rust-analyzer 0.3.1799-standalone
+In that event you could remove the Mason version with :MasonUninstall rust-analyzer.
+
 ### Commands and keymaps
 
 - `:<linenumber>` - take cursor to specified line number
@@ -49,4 +77,5 @@ Run `<C-space> I` from within a tmux sesson to install all tmux plugins
 - `>`- visual mode; indent code left
 - `:%s/<old-name>/<new-name>/g` - rename something in a file with a new value
 - `.` - repeat
+- `:<cmd> | only` - `:only` is the command that will make the current window the only window visible.
 
