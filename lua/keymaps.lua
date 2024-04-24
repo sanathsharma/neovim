@@ -4,11 +4,52 @@ vim.cmd("set softtabstop=2")
 vim.cmd("set tabstop=2")
 vim.opt.relativenumber = true
 vim.opt.number = true
-vim.opt.clipboard = "unnamedplus"
 vim.opt.foldmethod = "manual"
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
+vim.opt.swapfile = false
+vim.opt.backup = false
+-- store all change in a file, so that we can undo changes which are days old
+vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+vim.opt.undofile = true
+vim.opt.scrolloff = 5
+vim.opt.signcolumn = "yes"
+
+-- move selected lines up and down in visual mode
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+
+-- exit from insert mode
 vim.keymap.set("i", "jk", "<ESC>", { noremap = true, silent = true })
+
+-- half page jump
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
+
+-- search to stay in middle when switching back and forth between them
+vim.keymap.set("n", "n", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")
+
+-- keep old copied content even after pasting it over another selected content
+vim.keymap.set("x", "<leader>p", "\"_dP", { desc = "Past over selection w/o loosing the clipboard content" })
+
+-- navigating sugestion
+vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
+vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
+
+-- use plus register for yanking
+-- vim.opt.clipboard = "unnamedplus"
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
+vim.keymap.set("n", "<leader>Y", [["+Y]])
+
+-- stay in vim mode after command execution
+vim.api.nvim_set_keymap('v', '<', '<gv', { noremap = true })
+vim.api.nvim_set_keymap('v', '>', '>gv', { noremap = true })
+
+-- search and replace, shortcut
+vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "search and replace" })
+-- make the current sh script into an executable
+vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true, desc = "sh file to executable" })
 
 vim.keymap.set("n", "<leader>tn", function()
 	vim.cmd("set number!")
@@ -44,6 +85,7 @@ vim.keymap.set("n", "<down>", '<cmd>echo "Use j to move!!"<CR>')
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
+vim.opt.incsearch = true
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
 -- Diagnostic keymaps
@@ -57,7 +99,7 @@ vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagn
 --  See `:help vim.highlight.on_yank()`
 vim.api.nvim_create_autocmd("TextYankPost", {
 	desc = "Highlight when yanking (copying) text",
-	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+	group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
 	callback = function()
 		vim.highlight.on_yank()
 	end,

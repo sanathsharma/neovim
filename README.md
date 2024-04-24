@@ -22,7 +22,7 @@ curl -fsSL https://raw.githubusercontent.com/sanathsharma/neovim-config/main/set
 chmod +x setup.sh
 ./setup.sh
 rm setup.sh
-`
+```
 
 ### Rust, rust analyzer installation
 install stable toolchain
@@ -35,6 +35,8 @@ rustup component add rust-analyzer
 This makes neovim use the same rust-analyzer verison as the compiler, avoiding editor not giving errors or giving unnecessary errors for example
 
 -- lines from https://vi.stackexchange.com/questions/43681/simplest-setup-for-nvim-and-rust-and-system-rust-analyzer
+
+```
 You can confirm if your setup is using your system LSP via :checkhealth rustaceanvim after opening a Rust file:
 
 Checking external dependencies
@@ -43,6 +45,7 @@ If instead you had accidentally installed Mason's rust-analyzer, this check woul
 
 - OK rust-analyzer: found rust-analyzer 0.3.1799-standalone
 In that event you could remove the Mason version with :MasonUninstall rust-analyzer.
+```
 
 ### Commands and keymaps
 
@@ -78,4 +81,7 @@ In that event you could remove the Mason version with :MasonUninstall rust-analy
 - `:%s/<old-name>/<new-name>/g` - rename something in a file with a new value
 - `.` - repeat
 - `:<cmd> | only` - `:only` is the command that will make the current window the only window visible.
+- `:so` - re source nvim config
+- `H` - go to top line, in visible range
+- `L` - go to bottom line, in visible range
 
