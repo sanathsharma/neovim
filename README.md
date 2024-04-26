@@ -84,4 +84,6 @@ In that event you could remove the Mason version with :MasonUninstall rust-analy
 - `:so` - re source nvim config
 - `H` - go to top line, in visible range
 - `L` - go to bottom line, in visible range
+- `<C-i>` - jump to the next location in the jump list
+- `<C-o>` - jump to the previous location in the jump list
 

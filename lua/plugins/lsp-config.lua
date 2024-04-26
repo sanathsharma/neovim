@@ -147,18 +147,13 @@ return {
 					vim.keymap.set("n", "gi", tsBuiltin.lsp_implementations, opts("Go to [i]mplementation"))
 					vim.keymap.set("n", "gr", tsBuiltin.lsp_references, opts("Go to [r]eferences"))
 
-					vim.keymap.set(
-						{ "n", "v" },
-						"<leader>ac",
-						function()
-							if vim.bo.filetype == "rust" then
-								vim.cmd.RustLsp("codeAction")
-							else
-								vim.lsp.buf.code_action()
-							end
-						end,
-						opts("Show [C]ode actions")
-					)
+					vim.keymap.set({ "n", "v" }, "<leader>ac", function()
+						if vim.bo.filetype == "rust" then
+							vim.cmd.RustLsp("codeAction")
+						else
+							vim.lsp.buf.code_action()
+						end
+					end, opts("Show [C]ode actions"))
 					vim.keymap.set("n", "<leader>D", tsBuiltin.lsp_type_definitions, opts("Type [D]efinition"))
 					vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts("[R]e[n]ame"))
 					vim.keymap.set("n", "<leader>fd", tsBuiltin.lsp_document_symbols, opts("Find [d]ocument symbols"))
@@ -186,9 +181,11 @@ return {
 			vim.api.nvim_create_autocmd("LspAttach", {
 				group = vim.api.nvim_create_augroup("LspAttach_inlayhints", { clear = true }),
 				callback = function(event)
-					if vim.lsp.inlay_hint ~= nil then
-						pcall(vim.lsp.inlay_hint.enable, true, { bufnr = event.buf })
+					if vim.lsp.inlay_hint == nil then
+						return ""
 					end
+
+					pcall(vim.lsp.inlay_hint.enable, true, { bufnr = event.buf })
 				end,
 			})
 		end,
