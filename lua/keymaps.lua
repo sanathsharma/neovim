@@ -15,6 +15,11 @@ vim.opt.undofile = true
 vim.opt.scrolloff = 5
 vim.opt.signcolumn = "yes"
 
+-- buffer commands
+vim.keymap.set("n", "<leader>ba", "<cmd>bufdo bd<CR>", { desc = "Close [a]ll buffers" })
+vim.keymap.set("n", "<leader>bd", "<cmd>bd<CR>", { desc = "Close current buffer" })
+vim.keymap.set("n", "<leader>bc", "<cmd>%bd|e#<CR>", { desc = "Close all but current buffer" })
+
 -- move selected lines up and down in visual mode
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
@@ -31,7 +36,7 @@ vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
 -- keep old copied content even after pasting it over another selected content
-vim.keymap.set("x", "<leader>p", "\"_dP", { desc = "Past over selection w/o loosing the clipboard content" })
+vim.keymap.set("x", "<leader>p", '"_dP', { desc = "Past over selection w/o loosing the clipboard content" })
 
 -- navigating sugestion
 vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
@@ -43,11 +48,16 @@ vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 
 -- stay in vim mode after command execution
-vim.api.nvim_set_keymap('v', '<', '<gv', { noremap = true })
-vim.api.nvim_set_keymap('v', '>', '>gv', { noremap = true })
+vim.api.nvim_set_keymap("v", "<", "<gv", { noremap = true })
+vim.api.nvim_set_keymap("v", ">", ">gv", { noremap = true })
 
 -- search and replace, shortcut
-vim.keymap.set("n", "<leader>sr", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "search and replace" })
+vim.keymap.set(
+	"n",
+	"<leader>sr",
+	[[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+	{ desc = "search and replace" }
+)
 -- make the current sh script into an executable
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true, desc = "sh file to executable" })
 
