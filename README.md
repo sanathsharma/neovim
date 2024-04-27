@@ -56,6 +56,8 @@ In that event you could remove the Mason version with :MasonUninstall rust-analy
 - `za` - toggle a fold
 - `[c` - go to previous hunk
 - `]c` - go to next hunk
+- `(` - Jump to the previous file, hunk, or revision.
+- `)` - Jump to the next file, hunk, or revision.
 - `:Telescope git_commits` - fuzzy search git commits
 - `:Telescope git_branches` - fuzzy search git branches
 - `:Git` - git status
@@ -65,7 +67,7 @@ In that event you could remove the Mason version with :MasonUninstall rust-analy
 - `]d` - go to next error diagnostics
 - `:mkview` - write folds into a file
 - `:loadview` - read folds into a file
-- `:bd` - close all buffers
+- `:bd` - close current buffers
 - `:bp` - switch to previous buffer
 - `:bn` - switch to next buffer
 - `:bufdo bd` - close all buffers (INFO: will execute the following command for all buffers)
