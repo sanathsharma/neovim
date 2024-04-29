@@ -182,6 +182,7 @@ return {
 			-- enable inlayhints by default if lsp supports it
 			vim.api.nvim_create_autocmd("LspAttach", {
 				group = vim.api.nvim_create_augroup("LspAttach_inlayhints", { clear = true }),
+				pattern = { "*.lua", "*.rs", "*.go" },
 				callback = function(event)
 					if vim.lsp.inlay_hint == nil then
 						return ""
