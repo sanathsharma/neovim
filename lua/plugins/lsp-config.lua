@@ -100,7 +100,9 @@ return {
 			}
 
 			-- setup mason
-			require("mason").setup()
+			require("mason").setup({
+				log_level = vim.log.levels.INFO,
+			})
 
 			local ensure_installed = vim.tbl_keys(servers or {})
 			vim.list_extend(ensure_installed, {

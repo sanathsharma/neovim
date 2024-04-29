@@ -88,4 +88,8 @@ In that event you could remove the Mason version with :MasonUninstall rust-analy
 - `L` - go to bottom line, in visible range
 - `<C-i>` - jump to the next location in the jump list
 - `<C-o>` - jump to the previous location in the jump list
+- `/` - search in file
+- `*` - search word under the cursor, with in the file
+- `n` - go to next instance of search word
+- `N` - go to previous instance of search word
 
