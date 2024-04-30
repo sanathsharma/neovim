@@ -61,6 +61,9 @@ vim.keymap.set(
 -- make the current sh script into an executable
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true, desc = "sh file to executable" })
 
+-- rebase current branch
+vim.keymap.set("n", "<leader>hf", "<cmd>!git fetch<CR><cmd>!git rebase<CR>", { desc = "[f]etch origin, and rebase current branch" })
+
 vim.keymap.set("n", "<leader>tn", function()
 	vim.cmd("set number!")
 end, { desc = "Toggle line [n]umbering" })
