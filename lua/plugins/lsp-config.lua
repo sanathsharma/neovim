@@ -179,18 +179,18 @@ return {
 				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled(), { bufnr = 0 })
 			end, { desc = "Toggle inlay [h]ints" })
 
-			-- enable inlayhints by default if lsp supports it
-			vim.api.nvim_create_autocmd("LspAttach", {
-				group = vim.api.nvim_create_augroup("LspAttach_inlayhints", { clear = true }),
-				pattern = { "*.lua", "*.rs", "*.go" },
-				callback = function(event)
-					if vim.lsp.inlay_hint == nil then
-						return ""
-					end
-
-					pcall(vim.lsp.inlay_hint.enable, true, { bufnr = event.buf })
-				end,
-			})
+			-- enable inlayhints by default if lsp supports it, enabling it might cause unusual errors
+			-- vim.api.nvim_create_autocmd("LspAttach", {
+			-- 	group = vim.api.nvim_create_augroup("LspAttach_inlayhints", { clear = true }),
+			-- 	pattern = { "*.lua", "*.rs", "*.go" },
+			-- 	callback = function(event)
+			-- 		if vim.lsp.inlay_hint == nil then
+			-- 			return ""
+			-- 		end
+			--
+			-- 		pcall(vim.lsp.inlay_hint.enable, true, { bufnr = event.buf })
+			-- 	end,
+			-- })
 		end,
 	},
 }
