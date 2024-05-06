@@ -3,6 +3,7 @@ vim.cmd("set shiftwidth=2")
 vim.cmd("set softtabstop=2")
 vim.cmd("set tabstop=2")
 vim.opt.relativenumber = true
+vim.opt.mouse = ""
 vim.opt.number = true
 vim.opt.foldmethod = "manual"
 vim.g.mapleader = " "
