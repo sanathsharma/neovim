@@ -4,6 +4,7 @@ return {
 		dependencies = {
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
+			"b0o/schemastore.nvim",
 		},
 		config = function()
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -97,6 +98,14 @@ return {
 				-- 		},
 				-- 	},
 				-- },
+				jsonls = {
+					settings = {
+						json = {
+							schemas = require('schemastore').json.schemas(),
+							validate = { enable = true },
+						},
+					},
+				},
 			}
 
 			-- setup mason
