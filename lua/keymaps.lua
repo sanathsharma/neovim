@@ -93,6 +93,18 @@ vim.api.nvim_create_autocmd("BufWinLeave", {
 	end,
 })
 
+-- copy current buffer paths
+vim.api.nvim_create_user_command("CopyCurrentBufferFullPath", function()
+  local path = vim.fn.fnamemodify(vim.fn.expand("%"), ":p")
+  vim.fn.setreg("+", path) -- put path to + register (clipboard)
+  vim.notify('Copied "' .. path .. '" to the clipboard!')
+end, {})
+vim.api.nvim_create_user_command("CopyCurrentBufferRelPath", function()
+  local path = vim.fn.fnamemodify(vim.fn.expand("%"), "")
+  vim.fn.setreg("+", path) -- put path to + register (clipboard)
+  vim.notify('Copied "' .. path .. '" to the clipboard!')
+end, {})
+
 -- see https://github.com/nvim-lua/kickstart.nvim/blob/master/init.lua for more helpful configurations and keymaps
 -- all configurations and keymaps below this line are from kickstart.nvim template
 
