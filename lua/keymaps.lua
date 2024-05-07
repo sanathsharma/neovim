@@ -63,7 +63,12 @@ vim.keymap.set(
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true, desc = "sh file to executable" })
 
 -- rebase current branch
-vim.keymap.set("n", "<leader>hf", "<cmd>!git fetch<CR><cmd>!git rebase<CR>", { desc = "[f]etch origin, and rebase current branch" })
+vim.keymap.set(
+	"n",
+	"<leader>hf",
+	"<cmd>!git fetch<CR><cmd>!git rebase<CR>",
+	{ desc = "[f]etch origin, and rebase current branch" }
+)
 
 vim.keymap.set("n", "<leader>tn", function()
 	vim.cmd("set number!")
@@ -73,7 +78,7 @@ vim.keymap.set("n", "<leader>tr", function()
 	vim.cmd("set relativenumber!")
 end, { desc = "Toggle [r]elative line numbering" })
 
---#region autocmd for saving and loadin line folds
+--#region autocmd for saving and loading line folds
 local rememberFoldsAugroup = vim.api.nvim_create_augroup("remember_folds", { clear = true })
 vim.api.nvim_create_autocmd("BufWinEnter", {
 	group = rememberFoldsAugroup,
