@@ -7,7 +7,7 @@ return {
 		config = function()
 			require("ufo").setup({
 				provider_selector = function()
-					return { "treesitter", "indent" }
+					return { "lsp", "indent" }
 				end,
 			})
 
