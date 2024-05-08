@@ -154,7 +154,9 @@ return {
 
 					vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts("Go to [d]eclaration"))
 					vim.keymap.set("n", "gd", tsBuiltin.lsp_definitions, opts("Go to [d]efination"))
-					vim.keymap.set("n", "K", vim.lsp.buf.hover, opts("Show hover documentation"))
+					-- hover documentation is implemented in folds plugin, as a fallback if keymap is not triggered
+					-- on a fold
+					-- vim.keymap.set("n", "K", vim.lsp.buf.hover, opts("Show hover documentation"))
 					vim.keymap.set("n", "gi", tsBuiltin.lsp_implementations, opts("Go to [i]mplementation"))
 					vim.keymap.set("n", "gr", tsBuiltin.lsp_references, opts("Go to [r]eferences"))
 

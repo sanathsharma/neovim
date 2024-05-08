@@ -5,11 +5,17 @@ vim.cmd("set tabstop=2")
 vim.opt.relativenumber = true
 vim.opt.mouse = ""
 vim.opt.number = true
-vim.opt.foldmethod = "manual"
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 vim.opt.swapfile = false
 vim.opt.backup = false
+
+vim.opt.foldmethod = "manual"
+-- vim.o.foldcolumn = "1"
+vim.o.foldlevel = 99 -- Using ufo provider need a large value
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
+
 -- store all change in a file, so that we can undo changes which are days old
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.opt.undofile = true
@@ -78,31 +84,16 @@ vim.keymap.set("n", "<leader>tr", function()
 	vim.cmd("set relativenumber!")
 end, { desc = "Toggle [r]elative line numbering" })
 
---#region autocmd for saving and loading line folds
-local rememberFoldsAugroup = vim.api.nvim_create_augroup("remember_folds", { clear = true })
-vim.api.nvim_create_autocmd("BufWinEnter", {
-	group = rememberFoldsAugroup,
-	callback = function()
-		vim.cmd("silent! loadview")
-	end,
-})
-vim.api.nvim_create_autocmd("BufWinLeave", {
-	group = rememberFoldsAugroup,
-	callback = function()
-		vim.cmd("silent! mkview")
-	end,
-})
-
 -- copy current buffer paths
 vim.api.nvim_create_user_command("CopyCurrentBufferFullPath", function()
-  local path = vim.fn.fnamemodify(vim.fn.expand("%"), ":p")
-  vim.fn.setreg("+", path) -- put path to + register (clipboard)
-  vim.notify('Copied "' .. path .. '" to the clipboard!')
+	local path = vim.fn.fnamemodify(vim.fn.expand("%"), ":p")
+	vim.fn.setreg("+", path) -- put path to + register (clipboard)
+	vim.notify('Copied "' .. path .. '" to the clipboard!')
 end, {})
 vim.api.nvim_create_user_command("CopyCurrentBufferRelPath", function()
-  local path = vim.fn.fnamemodify(vim.fn.expand("%"), "")
-  vim.fn.setreg("+", path) -- put path to + register (clipboard)
-  vim.notify('Copied "' .. path .. '" to the clipboard!')
+	local path = vim.fn.fnamemodify(vim.fn.expand("%"), "")
+	vim.fn.setreg("+", path) -- put path to + register (clipboard)
+	vim.notify('Copied "' .. path .. '" to the clipboard!')
 end, {})
 
 -- see https://github.com/nvim-lua/kickstart.nvim/blob/master/init.lua for more helpful configurations and keymaps
