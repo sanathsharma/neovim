@@ -101,7 +101,7 @@ return {
 				jsonls = {
 					settings = {
 						json = {
-							schemas = require('schemastore').json.schemas(),
+							schemas = require("schemastore").json.schemas(),
 							validate = { enable = true },
 						},
 					},
@@ -115,7 +115,6 @@ return {
 
 			local ensure_installed = vim.tbl_keys(servers or {})
 			vim.list_extend(ensure_installed, {
-				"stylua", -- Used to format Lua code
 				"biome",
 				-- INFO: no need to add the below line, as system installed rust-analyzer shall be picked up
 				-- see ../../README.md for more info on setting up rust-analyzer on host
@@ -185,7 +184,7 @@ return {
 				end
 
 				-- toggle inlay hints
-				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled(), { bufnr = 0 })
+				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }), { bufnr = 0 })
 			end, { desc = "Toggle inlay [h]ints" })
 
 			-- enable inlayhints by default if lsp supports it, enabling it might cause unusual errors

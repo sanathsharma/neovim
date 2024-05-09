@@ -9,7 +9,6 @@ return {             -- Useful plugin to show you pending keybinds.
 		whichKey.register({
 			-- Document existing key chains
 			["<leader>c"] = { name = "[C]ode", _ = "which_key_ignore" },
-			["<leader>d"] = { name = "[D]ocument", _ = "which_key_ignore" },
 			["<leader>r"] = { name = "[R]ename", _ = "which_key_ignore" },
 			["<leader>s"] = { name = "[S]earch", _ = "which_key_ignore" },
 			["<leader>w"] = { name = "[W]orkspace", _ = "which_key_ignore" },
@@ -22,6 +21,7 @@ return {             -- Useful plugin to show you pending keybinds.
 			["<leader>h"] = { name = "Git actions", _ = "which_key_ignore" },
 			["<leader>u"] = { name = "[U]pgrade", _ = "which_key_ignore" },
 			["<leader>m"] = { name = "[M]arks", _ = "which_key_ignore" },
+			["<leader>d"] = { name = "[D]ebug adaptor protocol", _ = "which_key_ignore" },
 		}, { mode = "n" })
 
 		-- visual mode mappings register
