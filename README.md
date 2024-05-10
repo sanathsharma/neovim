@@ -24,6 +24,9 @@ chmod +x setup.sh
 rm setup.sh
 ```
 
+### LazyGit installation
+see https://github.com/jesseduffield/lazygit?tab=readme-ov-file#installation for more info
+
 ### Rust, rust analyzer installation
 install stable toolchain
 ```sh
