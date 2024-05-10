@@ -22,6 +22,7 @@ return {             -- Useful plugin to show you pending keybinds.
 			["<leader>u"] = { name = "[U]pgrade", _ = "which_key_ignore" },
 			["<leader>m"] = { name = "[M]arks", _ = "which_key_ignore" },
 			["<leader>d"] = { name = "[D]ebug adaptor protocol", _ = "which_key_ignore" },
+			["<leader>l"] = { name = "[L]azy", _ = "which_key_ignore" },
 		}, { mode = "n" })
 
 		-- visual mode mappings register
