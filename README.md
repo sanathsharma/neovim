@@ -4,6 +4,7 @@
 - tsserver
 - gopls
 - rust_analyser
+- jsonls
 
 ### Quick installation
 #### linux/docker-container
