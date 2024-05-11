@@ -99,4 +99,4 @@ see [stackexchange-thread](https://vi.stackexchange.com/questions/43681/simplest
 - `*` - search word under the cursor, with in the file
 - `n` - go to next instance of search word
 - `N` - go to previous instance of search word
-
+- `\\` - open terminal
