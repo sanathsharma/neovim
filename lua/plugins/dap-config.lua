@@ -13,21 +13,28 @@ return {
 			"rcarriga/nvim-dap-ui",
 			"nvim-neotest/nvim-nio",
 			"leoluz/nvim-dap-go",
+			{
+				"microsoft/vscode-js-debug",
+				-- After install, build it and rename the dist directory to out
+				build = "npm install --legacy-peer-deps --no-save && npx gulp vsDebugServerBundle && rm -rf out && mv dist out",
+				version = "*",
+			},
+			{
+				"mxsdev/nvim-dap-vscode-js",
+				config = function()
+					require("dap-vscode-js").setup({
+						-- node_path = "node", -- Path of node executable. Defaults to $NODE_PATH, and then "node"
+						debugger_path = vim.fn.resolve(vim.fn.stdpath("data") .. "/lazy/vscode-js-debug"),
+						adapters = { "pwa-node" }, -- which adapters to register in nvim-dap
+					})
+				end,
+			},
 		},
 		config = function()
 			local dap, dapui = require("dap"), require("dapui")
 
 			require("dap-go").setup()
 			dapui.setup()
-
-			dap.adapters["pwa-node"] = {
-				type = "server",
-				host = "127.0.0.1",
-				port = 8123,
-				executable = {
-					command = "js-debug-adapter",
-				},
-			}
 
 			dap.adapters["chrome"] = {
 				type = "executable",
@@ -51,8 +58,9 @@ return {
 						type = "pwa-node",
 						request = "attach",
 						name = "Attach",
-						processId = require("dap.utils").pick_process,
+						-- processId = require("dap.utils").pick_process,
 						cwd = vim.fn.getcwd(),
+						protocol = "inspector",
 						sourceMaps = true,
 					},
 					-- Debug web applications (client side)
