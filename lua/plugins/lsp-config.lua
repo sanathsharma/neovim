@@ -106,6 +106,7 @@ return {
 						},
 					},
 				},
+				marksman = {},
 			}
 
 			-- setup mason

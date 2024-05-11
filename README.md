@@ -5,6 +5,7 @@
 - gopls
 - rust_analyser
 - jsonls
+- marksman (markdown files)
 
 ### Quick installation
 #### linux/docker-container
@@ -26,7 +27,7 @@ rm setup.sh
 ```
 
 ### LazyGit installation
-see https://github.com/jesseduffield/lazygit?tab=readme-ov-file#installation for more info
+see [lazygit-github-installation-setup](https://github.com/jesseduffield/lazygit?tab=readme-ov-file#installation) for more info
 
 ### Rust, rust analyzer installation
 install stable toolchain
@@ -38,7 +39,7 @@ rustup component add rust-analyzer
 ```
 This makes neovim use the same rust-analyzer verison as the compiler, avoiding editor not giving errors or giving unnecessary errors for example
 
--- lines from https://vi.stackexchange.com/questions/43681/simplest-setup-for-nvim-and-rust-and-system-rust-analyzer
+#### Check the source of rust-analyzer
 
 ```
 You can confirm if your setup is using your system LSP via :checkhealth rustaceanvim after opening a Rust file:
@@ -50,6 +51,8 @@ If instead you had accidentally installed Mason's rust-analyzer, this check woul
 - OK rust-analyzer: found rust-analyzer 0.3.1799-standalone
 In that event you could remove the Mason version with :MasonUninstall rust-analyzer.
 ```
+
+see [stackexchange-thread](https://vi.stackexchange.com/questions/43681/simplest-setup-for-nvim-and-rust-and-system-rust-analyzer) for more info
 
 ### Commands and keymaps
 
