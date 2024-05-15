@@ -72,6 +72,14 @@ vim.keymap.set(
 	[[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
 	{ desc = "search and replace" }
 )
+-- executes search and replace in all the buffers of a quickfix list
+vim.keymap.set(
+	"n",
+	"<leader>sg",
+	[[:cdo s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+	{ desc = "global search and replace" }
+)
+
 -- make the current sh script into an executable
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true, desc = "sh file to executable" })
 
