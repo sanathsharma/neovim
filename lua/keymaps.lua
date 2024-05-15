@@ -1,7 +1,7 @@
 -- filetype support for .env.development or .env.local
-vim.api.nvim_create_autocmd({ 'BufEnter', 'BufNewFile' }, {
-  pattern = '.env*',
-  command = 'set filetype=sh',
+vim.api.nvim_create_autocmd({ "BufEnter", "BufNewFile" }, {
+	pattern = ".env*",
+	command = "set filetype=sh",
 })
 
 vim.cmd("set noexpandtab")
