@@ -54,6 +54,10 @@ In that event you could remove the Mason version with :MasonUninstall rust-analy
 
 see [stackexchange-thread](https://vi.stackexchange.com/questions/43681/simplest-setup-for-nvim-and-rust-and-system-rust-analyzer) for more info
 
+### helpful git config to easy git experience (personal preference)
+```sh
+git config --global pull.rebase true
+```
 ### Commands and keymaps
 
 - `:<linenumber>` - take cursor to specified line number
@@ -100,3 +104,5 @@ see [stackexchange-thread](https://vi.stackexchange.com/questions/43681/simplest
 - `n` - go to next instance of search word
 - `N` - go to previous instance of search word
 - `\\` - open terminal
+- = - auto indent selected line in visual mode
+- <n>== - auto indent next n lines
