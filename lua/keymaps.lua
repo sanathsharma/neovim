@@ -111,6 +111,20 @@ vim.api.nvim_create_user_command("CopyCurrentBufferRelPath", function()
 	vim.notify('Copied "' .. path .. '" to the clipboard!')
 end, {})
 
+-- kill a process running in a specific port
+vim.keymap.set("n", "<leader>k", function()
+	vim.ui.input({
+		prompt = "Enter Port: ",
+		default = "3000",
+	}, function(port)
+		if port == nil or port == "" then
+			return
+		else
+			vim.cmd("!sudo kill -9 $(sudo lsof -t -i:" .. port .. ")")
+		end
+	end)
+end, { desc = "[K]ill a process by port number" })
+
 -- see https://github.com/nvim-lua/kickstart.nvim/blob/master/init.lua for more helpful configurations and keymaps
 -- all configurations and keymaps below this line are from kickstart.nvim template
 
@@ -141,3 +155,4 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 		vim.highlight.on_yank()
 	end,
 })
+

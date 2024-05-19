@@ -29,6 +29,12 @@ rm setup.sh
 ### LazyGit installation
 see [lazygit-github-installation-setup](https://github.com/jesseduffield/lazygit?tab=readme-ov-file#installation) for more info
 
+### `gx` command enabling
+install xdg-utils to make xdg-open command available to nvim to use gx command
+```sh
+apt install xdg-utils
+```
+
 ### Rust, rust analyzer installation
 install stable toolchain
 ```sh
@@ -53,6 +59,32 @@ In that event you could remove the Mason version with :MasonUninstall rust-analy
 ```
 
 see [stackexchange-thread](https://vi.stackexchange.com/questions/43681/simplest-setup-for-nvim-and-rust-and-system-rust-analyzer) for more info
+
+### Example launch.json
+For node.js
+```json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "pwa-node",
+            "request": "launch",
+            "name": "Launch Node App",
+            "cwd": "${workspaceFolder}",
+            "runtimeArgs": [
+                "--harmony"
+            ],
+            "restart": true,
+            "stopOnEntry": false,
+            "program": "/root/.nvm/versions/node/v20.13.1/lib/node_modules/npm",
+            "args": [
+                "run",
+                "dev"
+            ]
+        }
+    ]
+}
+```
 
 ### helpful git config to easy git experience (personal preference)
 ```sh

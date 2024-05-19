@@ -6,6 +6,22 @@ local js_based_languages = {
 	"vue",
 }
 
+local function pick_url()
+	local co = coroutine.running()
+	return coroutine.create(function()
+		vim.ui.input({
+			prompt = "Enter URL: ",
+			default = "http://localhost:3000",
+		}, function(url)
+			if url == nil or url == "" then
+				return
+			else
+				coroutine.resume(co, url)
+			end
+		end)
+	end)
+end
+
 return {
 	{
 		"mfussenegger/nvim-dap",
@@ -36,6 +52,7 @@ return {
 			require("dap-go").setup()
 			dapui.setup()
 
+			--#region js
 			dap.adapters["chrome"] = {
 				type = "executable",
 				command = "chrome-debug-adapter",
@@ -51,6 +68,9 @@ return {
 						name = "Launch file",
 						program = "${file}",
 						cwd = vim.fn.getcwd(),
+						protocol = "inspector",
+						restart = true,
+						stopOnEntry = false,
 						sourceMaps = true,
 					},
 					-- Debug nodejs processes (make sure to add --inspect when you run the process)
@@ -58,31 +78,29 @@ return {
 						type = "pwa-node",
 						request = "attach",
 						name = "Attach",
-						-- processId = require("dap.utils").pick_process,
 						cwd = vim.fn.getcwd(),
 						protocol = "inspector",
 						sourceMaps = true,
+						restart = true,
+						stopOnEntry = false,
+					},
+					{
+						type = "pwa-node",
+						request = "attach",
+						name = "Attach to process",
+						processId = require("dap.utils").pick_process,
+						cwd = vim.fn.getcwd(),
+						protocol = "inspector",
+						sourceMaps = true,
+						restart = true,
+						stopOnEntry = false,
 					},
 					-- Debug web applications (client side)
 					{
 						type = "chrome",
 						request = "launch",
 						name = "Launch & Debug Chrome",
-						url = function()
-							local co = coroutine.running()
-							return coroutine.create(function()
-								vim.ui.input({
-									prompt = "Enter URL: ",
-									default = "http://localhost:3000",
-								}, function(url)
-									if url == nil or url == "" then
-										return
-									else
-										coroutine.resume(co, url)
-									end
-								end)
-							end)
-						end,
+						url = pick_url,
 						webRoot = vim.fn.getcwd(),
 						protocol = "inspector",
 						sourceMaps = true,
@@ -91,7 +109,7 @@ return {
 					{
 						type = "chrome",
 						request = "attach",
-						name = "Attach to chrome",
+						name = "Attach to chrome process",
 						program = "${file}",
 						processId = require("dap.utils").pick_process,
 						cwd = vim.fn.getcwd(),
@@ -100,7 +118,6 @@ return {
 						port = 9222,
 						webRoot = "${workspaceFolder}",
 					},
-
 					-- Divider for the launch.json derived configs
 					{
 						name = "----- ↓ launch.json configs ↓ -----",
@@ -109,8 +126,28 @@ return {
 					},
 				}
 			end
+			--#endregion
 
-			-- event listeners
+			--#region rust
+			dap.adapters.lldb = {
+				type = "executable",
+				command = "codelldb",
+				name = "lldb",
+			}
+
+			dap.configurations.rust = {
+				{
+					name = "Launch",
+					type = "lldb",
+					request = "launch",
+					cwd = "${workspaceFolder}",
+					stopOnEntry = false,
+					args = {},
+				},
+			}
+			--#endregion
+
+			--#region event listeners
 			dap.listeners.before.attach.dapui_config = function()
 				dapui.open({ reset = true })
 			end
@@ -123,8 +160,9 @@ return {
 			dap.listeners.before.event_exited.dapui_config = function()
 				dapui.close()
 			end
+			--#endregion
 
-			-- keymaps
+			--#region keymaps
 			vim.keymap.set(
 				"n",
 				"<leader>dt",
@@ -137,13 +175,26 @@ return {
 				"<cmd>DapToggleBreakpoint<CR>",
 				{ noremap = true, desc = "[T]oggle DAP breakpoint" }
 			)
-			vim.keymap.set("n", "<leader>dc", "<cmd>DapContinue<CR>", { noremap = true, desc = "DAP continue" })
+			vim.keymap.set("n", "<leader>dc", function()
+				if vim.fn.filereadable(".vscode/launch.json") then
+					local dap_vscode = require("dap.ext.vscode")
+					dap_vscode.load_launchjs(nil, {
+						["pwa-node"] = js_based_languages,
+						["node"] = js_based_languages,
+						["chrome"] = js_based_languages,
+						["pwa-chrome"] = js_based_languages,
+						["lldb"] = { "rust" },
+					})
+				end
+				require("dap").continue()
+			end, { noremap = true, desc = "DAP continue" })
 			vim.keymap.set(
 				"n",
 				"<leader>dr",
 				"<cmd>lua require('dapui').open({ reset = true })<CR>",
 				{ noremap = true, desc = "[R]eset DAP UI" }
 			)
+			--#endregion
 		end,
 	},
 	{
